@@ -1,0 +1,22 @@
+25.11.2022:
+7. wordcount lisada metasse? EI LISA
+
+
+
+
+# katkine akt on https://www.riigiteataja.ee/akt/830203
+# asub https://www.riigiteataja.ee/kronoloogia.html?aasta=2005&rtOsaId=
+
+DONE:
+RT paralleelkorpus
+valdkonna tekstitüüpidega tekkis küsimus
+saab muuta kusagilt korpuses SRC
+tekstitüüpide muutmine riigi teatajas - küsi Helenilt
+kirjelduse lisamine
+
+1. ISSUER järgi saab liigitada määrused kas KOV määrus või üleriigiline määrus
+2. rakendusaktide/korralduste/otsuste/määruste puuduolevad valdkonnad algse seaduse seotud valdkondadest ** saab ainult need kätte, mis on LINGINA lauses "Määrus kehtestatakse ..."
+3. in force from võtta vv ("Vastu võetud 25.01.2011 nr 5) !!!!!!!!!!!!! võib-olla ei peaks !!!!!!!!!!
+4. kui sisuosa on tühi, siis välja jätta (p ilma classita) > Kui on viimane tekst sisuosas "Muudetud järgmiste aktidega (näita)", siis ei kirjuta faili
+5. vastu võetud (eraldada abbreviationist, nimetada "passed" või "entry into force")
+6. timestamp > publishing_year

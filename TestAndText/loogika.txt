@@ -1,0 +1,35 @@
+4 starting pointi:
+1 - süstemaatiline liigitus
+2 - eurovoc
+3 - KOV määrused
+4 - kronoloogia
+
+1. valib starting pointi
+2. liigub läbi jaotuste, leiab ükshaaval aktid
+2.1. kui akti URL ei ole listis, siis lisab; kui olemas, siis edasi ei vaata
+2.2. kui akti URL ei ole listis, siis avab akti, otsib rakendusakte
+2.3. kui rakendusaktid on, siis võrdleb neid URLide listiga. Kui ei ole listis, siis lisab
+
+1. URLlistist hakkab ükshaaval lugema
+2. kui on määrus, siis kas on lause "<p>Määrus kehtestatakse ... alusel.</p>". Võtab sealt seotud aktid. 
+2.  
+
+
+
+
+
+
+1. Loob kronoloogiliste URLide listi
+2. loob metaandmete faili
+3. Vaatab starting point URLi järgi, kuhu kuulub (sys/chrono)
+    1. otsib alamlehelt kõik aktid
+        1. avab iga akti eraldi ja kui aktil on sisutekst olemas, siis lisab listi
+            1. SIIN PEAKS KIRJUTAMA AKTI FAILI (kontrollib esmalt, kas fail on juba olemas)
+            2. SIIN PEAKS KIRJUTAMA IGA AKTI META FAILI (### worksheeti nimi, rida ###)
+            3. vaatab, kas aktil on rakendusakte
+                    1. kui on rakendusakte, siis avab lehe ja lisab listi iga rakendusakti urli 
+                        1. SIIN PEAKS KIRJUTAMA IGA RAKENDUSAKTI FAILI (kontrollib esmalt, kas fail on juba olemas)
+                        2. SIIN PEAKS KIRJUTAMA IGA RAKENDUSAKTI META FAILI (### worksheeti nimi, rida ###)
+3. kirjutab kõik starting pointist leitud aktide urlid ühte faili
+
+
