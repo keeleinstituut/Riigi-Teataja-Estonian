@@ -160,7 +160,7 @@ def metaparser(results, soup, subcat, url, metaworksheet, fileid, metano, vv, bo
                 subcat2 = subcats[1]
                 subcat3 = subcats[2]
                 subcat4 = subcats[3]
-
+                break
 
     sub1 = 'domain_systematic="'+subcat1+'"' 
     sub2 = 'domain_Eurovoc="'+subcat2+'"' 

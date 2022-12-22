@@ -43,3 +43,40 @@ def xlsx_file_writer(urllist, path):
     
     workbook.close()  
     print("lõpetas kirjutamise, sulges faili")
+
+def create_search_page_urls(searchURLs):
+    pages = []
+    for url in searchURLs:
+        pages_list = []
+        pagecounter = 0
+        searchpagelist = search_page_writer(url, pages_list, pagecounter)
+        pages = searchpagelist[2]   
+    
+    removeduplicates(pages)
+
+    return pages
+
+def search_page_writer(url, pages_list, pagecounter):   
+    #search function
+    pages_list.append(url)
+
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, "html.parser")
+    #vaatab, kas on veel lehekülgi
+    nextpage = soup.find("li", class_="next") 
+    if nextpage:
+        nextlink = nextpage.find("a")
+    
+
+    # kui on veel lehekülgi, siis liigub järgmise juurde
+    if nextlink:
+        url = url.replace(("leht=" + str(pagecounter)), ("leht=" + str(pagecounter+1)))
+        pagecounter += 1
+        results = search_page_writer(url, pages_list, pagecounter)
+        url = results[0]
+        pagecounter = results[1]
+        pages_list = results[2]
+
+    return url, pagecounter, pages_list
+
+
