@@ -107,6 +107,7 @@ def get_titleabb(soup):
     # act title and abbrevation
     title_long = soup.find("h1", class_="fixed").text
     title_long = title_long.strip()# title_long.replace("\s+","")
+    title_long = title_long.replace('"', '/"')
     abbrevation = "None"
    
     m = re.search(r'\(lühend\s-\s(.*?)\)', title_long)

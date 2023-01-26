@@ -1,5 +1,5 @@
 import os
-from all_meta_file_writer_functions import start_meta_file
+from single_meta_file_writer_functions import start_meta_file
 
 current_dir = os.getcwd()
 main_folder = "acts_dec"

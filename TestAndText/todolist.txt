@@ -1,19 +1,24 @@
+12.01.2023
+1. Välislepingud - kontrolli, kas said kõik sisse (RTs 1748, korpuses 21)
+2. Välislepingud - kontrolli, kas on tulnud sisse inglise k teksti (nt akt: https://www.riigiteataja.ee/akt/13058558 on prantsuse ja inglise k tekst lõpus)
+3. Miks üks akt on 1017 aastaarvuga? https://www.riigiteataja.ee/akt/13058558 
+4. Miks on lepingudi kokku vähem kui RT statistika kuvab
+5. SKETCH ENGINE: issuer järjekord võiks olla enne üleriigilised ja siis kov-id (praegu alfabeetiline)
+6. Et "NONE" oleks esimene (Ühendkorpuses on ===NONE===)
+7. Title jm metainfo ei tohi sisalda jutumärke. Kui on, siis /" 
+8. kõik ei ole ehk vajalikud kuvada (nt Language, ID, File name, Crawl time
+9. Osad kehtetud üleriigilised seadused ja määrused puudu (kopruses 22)
+
+
+
 25.11.2022:
 7. wordcount lisada metasse? EI LISA
-
-
 
 
 # katkine akt on https://www.riigiteataja.ee/akt/830203
 # asub https://www.riigiteataja.ee/kronoloogia.html?aasta=2005&rtOsaId=
 
 DONE:
-RT paralleelkorpus
-valdkonna tekstitüüpidega tekkis küsimus
-saab muuta kusagilt korpuses SRC
-tekstitüüpide muutmine riigi teatajas - küsi Helenilt
-kirjelduse lisamine
-
 1. ISSUER järgi saab liigitada määrused kas KOV määrus või üleriigiline määrus
 2. rakendusaktide/korralduste/otsuste/määruste puuduolevad valdkonnad algse seaduse seotud valdkondadest ** saab ainult need kätte, mis on LINGINA lauses "Määrus kehtestatakse ..."
 3. in force from võtta vv ("Vastu võetud 25.01.2011 nr 5) !!!!!!!!!!!!! võib-olla ei peaks !!!!!!!!!!
