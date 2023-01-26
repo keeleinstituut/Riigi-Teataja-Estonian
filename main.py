@@ -28,7 +28,7 @@ URLlist += chronoURLs
 # search function URLS
 currentDate = datetime.date.today()
 kuupaev = currentDate.strftime("%d.%m.%Y")
-searchURLs = ['https://www.riigiteataja.ee/algteksti_tulemused.html?doli=v%C3%A4lisleping&nrOtsing=tapne&leht=0&kuvaKoik=true&sorteeri=&kasvav=true'
+searchURLs = [#'https://www.riigiteataja.ee/algteksti_tulemused.html?doli=v%C3%A4lisleping&nrOtsing=tapne&leht=0&kuvaKoik=true&sorteeri=&kasvav=true',
              "https://www.riigiteataja.ee/tervikteksti_tulemused.html?kehtivusKuupaev=" + str(kuupaev) + "&nrOtsing=tapne&riigikoguOtsused=false&valislepingud=false&valitsuseKorraldused=false&sakk=koik_otsitavad&leht=0&kuvaKoik=true&sorteeri=&kasvav=true",
              "https://www.riigiteataja.ee/algteksti_tulemused.html?nrOtsing=tapne&leht=0&kuvaKoik=true&sorteeri=&kasvav=true",
              "https://www.riigiteataja.ee/tervikteksti_tulemused.html?kehtivusKuupaev=" + str(kuupaev) + "&kov=true&nrOtsing=tapne&valj1=K%C3%B5ik+KOV-id&sakk=koik_otsitavad&leht=0&kuvaKoik=true&sorteeri=&kasvav=true",
