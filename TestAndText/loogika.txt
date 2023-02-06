@@ -1,17 +1,16 @@
 Käivitub main.py-st
 
 Alguspunkti URLid main.py-s:
-1 - süstemaatiline liigitus
-2 - eurovoc
-3 - KOV määrused
-4 - kronoloogia al 1989 kuni käesolev aasta
-5 - otsingud (terviktekst, algtekst, KOV terviktekstid ja KOV algtekstid; kehtivad + kehtetud)
+1 - süstemaatiline liigitus, eurovoc, KOV määrused, välislepingud
+2 - kronoloogia al 1989 kuni käesolev aasta
+3 - otsingud (terviktekst, algtekst, KOV terviktekstid ja KOV algtekstid; kehtivad + kehtetud)
 
 
 1. Kogub kõik alguspuntkide URLid listi
 2. Vaatab igat alguspunkti URLi eraldi ja tuvastab, mis tüüpi alguspunktiga on tegu; alustab metafailiga
 3. Leiab alguspunktist ükshaaval aktid 
-2.1. kui akti koodiga fail on juba kirjutatud, siis jätab vahele; kui ei, siis kirjutab faili ja metaandmed
+2.1. kui akti koodiga fail on juba kirjutatud, siis jätab vahele; kui ei, siis kirjutab faili ja metaandmed;
+     Samuti jätab vahele aktid, millel puudub sisutekst (esimene lõik on: "Muudetud järgmiste aktidega (näita)")
 2.2. kui akti URL ei ole listis, siis avab akti, otsib rakendusakte
 2.3. kui rakendusaktid on, siis vaatab, kas akti koodiga fail on juba kirjutatud. Kui ei ole, siis lisab kirjutab ja lisab metaandmete faili ka.
 3. Kui kõik alguspunkti kaudu leitavad aktid on läbi käidud, siis kirjutab ja sulgeb metafaili ja liigub järgmise alguspunkti URLi juurde

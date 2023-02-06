@@ -89,14 +89,12 @@ def get_validity(metain_force_until, now):
     validity = "None"
     # validity parameter: Hetkel kehtiv, kehtetu, None
     date_in_force = ""
-    if any(chr.isdigit() for chr in metain_force_until):
+    if bool(re.search('\d+\.\d+\.\d\d\d\d', metain_force_until)):
         date_in_force=datetime.strptime(metain_force_until, "%d.%m.%Y")
         if date_in_force >= now:
             validity = "Hetkel kehtiv"
         elif date_in_force < now:
             validity = "Kehtetu"
-    else:
-        validity = metain_force_until
 
     validity_note = 'validity="'+str(validity)+'"'
     metavalidity_note = str(validity)

@@ -1,15 +1,37 @@
 12.01.2023
-1. Välislepingud - kontrolli, kas said kõik sisse (RTs 1748, korpuses 21)
-2. Välislepingud - kontrolli, kas on tulnud sisse inglise k teksti (nt akt: https://www.riigiteataja.ee/akt/13058558 on prantsuse ja inglise k tekst lõpus)
-3. Miks üks akt on 1017 aastaarvuga? https://www.riigiteataja.ee/akt/13058558 
-4. Miks on lepingudi kokku vähem kui RT statistika kuvab
-5. SKETCH ENGINE: issuer järjekord võiks olla enne üleriigilised ja siis kov-id (praegu alfabeetiline)
-6. Et "NONE" oleks esimene (Ühendkorpuses on ===NONE===)
-7. Title jm metainfo ei tohi sisalda jutumärke. Kui on, siis /" 
-8. kõik ei ole ehk vajalikud kuvada (nt Language, ID, File name, Crawl time
-9. Osad kehtetud üleriigilised seadused ja määrused puudu (kopruses 22)
+8. Välislepingud - kontrolli, kas said kõik sisse (RTs 1748, korpuses 21)
+9. Välislepingud - kontrolli, kas on tulnud sisse inglise k teksti (nt akt: https://www.riigiteataja.ee/akt/13058558 on prantsuse ja inglise k tekst lõpus)
+10. Miks üks akt on 1017 aastaarvuga? https://www.riigiteataja.ee/akt/13058558 
+11. Miks on lepingudi kokku vähem kui RT statistika kuvab
+12. SKETCH ENGINE: issuer järjekord võiks olla enne üleriigilised ja siis kov-id (praegu alfabeetiline)
+13. Et "NONE" oleks esimene (Ühendkorpuses on ===NONE===)
+15. kõik ei ole ehk vajalikud kuvada (nt Language, ID, File name, Crawl time
+16. Osad kehtetud üleriigilised seadused ja määrused puudu (kopruses 22)
 
-
+---------------- kirjutas faili --------------- 316032020001
+345 done act:  https://www.riigiteataja.ee/akt/316032020001 metadata row: 313
+alustab aktiga:  https://www.riigiteataja.ee/akt/317032020005
+Traceback (most recent call last):
+  File "c:\Users\tiiu.uksik\Documents\RT-ET-crawl2\RT-ET-crawl2\main.py", line 64, in <module>
+    starting_point_identifier(URLlist, file_path, mainpath, metafiledate, metacounter)
+  File "c:\Users\tiiu.uksik\Documents\RT-ET-crawl2\RT-ET-crawl2\URLcollector_functions\type_identifier_functions.py", line 37, in starting_point_identifier
+    metacounter = searchacts_metawriter(resultstable, mainpath, filepath, metafiledate, metacounter)
+  File "c:\Users\tiiu.uksik\Documents\RT-ET-crawl2\RT-ET-crawl2\URLcollector_functions\type_identifier_functions.py", line 154, in searchacts_metawriter
+    actinfo = act_checker(actURL, metano, metaworksheet, counter, filepath)
+  File "c:\Users\tiiu.uksik\Documents\RT-ET-crawl2\RT-ET-crawl2\URLcollector_functions\acts_functions.py", line 23, in act_checker
+    result = actwriter(pageURL, metaworksheet, metano, filepath)
+  File "c:\Users\tiiu.uksik\Documents\RT-ET-crawl2\RT-ET-crawl2\FileWriter_functions\writer_functions.py", line 96, in actwriter
+    metadataET = metaparser(metacontent, soup, subcat, url, metaworksheet, fileid, metano, vv, bodyparagraphs)
+  File "c:\Users\tiiu.uksik\Documents\RT-ET-crawl2\RT-ET-crawl2\FileWriter_functions\writer_functions.py", line 207, in metaparser
+    validity_res = get_validity(metain_force_until, now)
+  File "c:\Users\tiiu.uksik\Documents\RT-ET-crawl2\RT-ET-crawl2\FileWriter_functions\getmetainfo_functions.py", line 93, in get_validity
+    date_in_force=datetime.strptime(metain_force_until, "%d.%m.%Y")
+  File "C:\Users\tiiu.uksik\Anaconda3\envs\py310\lib\_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "C:\Users\tiiu.uksik\Anaconda3\envs\py310\lib\_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data 'kehtib kuni Kaitseliidu kaasamise vajaduse äralangemiseni, kuid mitte kauem kui 15. aprillini 2020. a.' does not match format '%d.%m.%Y'
+PS C:\Users\tiiu.uksik\Documents\RT-ET-crawl2\RT-ET-crawl2>
 
 25.11.2022:
 7. wordcount lisada metasse? EI LISA
@@ -25,3 +47,5 @@ DONE:
 4. kui sisuosa on tühi, siis välja jätta (p ilma classita) > Kui on viimane tekst sisuosas "Muudetud järgmiste aktidega (näita)", siis ei kirjuta faili
 5. vastu võetud (eraldada abbreviationist, nimetada "passed" või "entry into force")
 6. timestamp > publishing_year
+14. Title jm metainfo ei tohi sisalda jutumärke. Kui on, siis /" 
+

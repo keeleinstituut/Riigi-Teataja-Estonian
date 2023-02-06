@@ -18,7 +18,7 @@ def starting_point_identifier(URLlist, filepath, mainpath, metafiledate, metacou
         page = requests.get(url)
         soup = BeautifulSoup(page.content, "html.parser")
         
-        #systematic, Eurovoc, KOV määrused
+        #systematic, Eurovoc, KOV määrused, välislepingud
         if soup.find("ul", class_="system"): 
             results = soup.find("ul", class_="system")
             metacounter = generalacts_metawriter(results, mainpath, filepath, metafiledate, metacounter)
@@ -44,7 +44,7 @@ def starting_point_identifier(URLlist, filepath, mainpath, metafiledate, metacou
 def generalacts_metawriter(results, mainpath, filepath, metafiledate, metacounter):
     print('alustab genacts')
 
-    metapath = os.path.join(mainpath, ("".join([metafiledate, str(metacounter), '.xlsx'])))
+    metapath = os.path.join(mainpath, ("".join([metafiledate, str(metacounter), '-general.xlsx'])))
 
     counter = 0
     metano = 1
@@ -87,7 +87,7 @@ def chronoacts_metawriter(events, mainpath, filepath, metafiledate, metacounter)
     print('alustab chronoacts')
     #actlinks = []
 
-    metapath = os.path.join(mainpath, ("".join([metafiledate, str(metacounter), '.xlsx'])))
+    metapath = os.path.join(mainpath, ("".join([metafiledate, str(metacounter), '-chrono.xlsx'])))
     
     counter = 0
     metano = 1
@@ -137,7 +137,7 @@ def searchacts_metawriter(resultstable, mainpath, filepath, metafiledate, metaco
     print('alustab searchacts')
     #actlinks = []
 
-    metapath = os.path.join(mainpath, ("".join([metafiledate, str(metacounter), '.xlsx'])))
+    metapath = os.path.join(mainpath, ("".join([metafiledate, str(metacounter), '-search.xlsx'])))
     
     counter = 0
     metano = 1
