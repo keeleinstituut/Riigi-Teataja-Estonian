@@ -14,6 +14,10 @@ from datetime import datetime, date
 from FileWriter_functions.domainwriter import subcatanalyzer, subcat_from_main, subjoiner
 from FileWriter_functions.getmetainfo_functions import *
 
+# from lingua import Language, LanguageDetectorBuilder
+
+# languages = [Language.ESTONIAN, Language.ENGLISH, Language.FRENCH]
+# detector = LanguageDetectorBuilder.from_languages(*languages).build()
 
 def urlcollector(actspath, metapath, filepath):
     wb_obj = openpyxl.load_workbook(actspath) 
@@ -42,8 +46,8 @@ def urlcollector(actspath, metapath, filepath):
     metaworksheet.write('Q1', "act_passed")
     metaworksheet.write('R1', "crawl_date")
     metaworksheet.write('S1', "crawl_time")
-    metaworksheet.write('T1', "language")
-    metaworksheet.write('U1', "url")
+    metaworksheet.write('T1', "url")
+    # metaworksheet.write('U1', "language")
     
     # loeb ridahaaval ja toimetab iga URLiga edasi
     for row in sheet.iter_rows():
@@ -71,7 +75,7 @@ def actwriter(url, metaworksheet, metano, filepath):
         vv = vastu_voetud.br.previous_sibling.text
         vv = vv.replace('Vastu võetud ','')
     else:
-        vv = "None"
+        vv = "NONE"
 
     # writes .xlsx file
     fileid = url.split('/')[-1]
@@ -143,7 +147,7 @@ def metaparser(results, soup, subcat, url, metaworksheet, fileid, metano, vv, bo
 
     # other
     passed = 'act_passed="'+vv+'"'
-    lang = 'language="Estonian"'
+    #lang = 'language="Estonian"'
 
     # subcategories
     subcat = subcatanalyzer(url) 
@@ -152,7 +156,7 @@ def metaparser(results, soup, subcat, url, metaworksheet, fileid, metano, vv, bo
     subcat3 = subjoiner(subcat[2])
     subcat4 = subjoiner(subcat[3])
 
-    if subcat1 == subcat2 == subcat3 == subcat4 == "None":
+    if subcat1 == subcat2 == subcat3 == subcat4 == "NONE":
         for paragraph in bodyparagraphs:        
             if "Määrus kehtestatakse" in paragraph.text:
                 subcats = subcat_from_main(paragraph)
@@ -233,11 +237,11 @@ def metaparser(results, soup, subcat, url, metaworksheet, fileid, metano, vv, bo
     metaworksheet.write('Q'+str(metano), vv)
     metaworksheet.write('R'+str(metano), crawldate)
     metaworksheet.write('S'+str(metano), crawltime)
-    metaworksheet.write('T'+str(metano), 'Estonian')
-    metaworksheet.write('U'+str(metano), url_meta)
+    metaworksheet.write('T'+str(metano), url_meta)
+    #metaworksheet.write('U'+str(metano), 'Estonian')
     
     # creates meta for act file
-    metadata = " ".join(['<doc', filename, idno, publishing_year,  sub1, sub2, sub3,  sub4, issuer, act_type, text_type,  in_force_from, in_force_until, validity_note, publishing_note, title, abbrevation_act, passed, crawl_date, crawl_time, lang, url_actmeta,'>'])
+    metadata = " ".join(['<doc', filename, idno, publishing_year,  sub1, sub2, sub3,  sub4, issuer, act_type, text_type,  in_force_from, in_force_until, validity_note, publishing_note, title, abbrevation_act, passed, crawl_date, crawl_time, url_actmeta,'>'])
 
     print("kirjutas metafaili: ", fileid)
     return subcat, metadata, metano
@@ -249,6 +253,12 @@ def paralyzer(bodyparagraphs, n, paragraphs, no):
     paraname = bodyparagraphs[n].name
     para1 = bodyparagraphs[n].text
     para1 = ' '.join((' '.join(para1.splitlines())).split())
+    # if detector.detect_language_of(para1) == Language.ESTONIAN:
+    #     print("on")
+    #     print(para1)
+    #     print(detector.detect_language_of(para1))
+    # else:
+    #     print("ei ole")
     n += 1
     value += para1
 

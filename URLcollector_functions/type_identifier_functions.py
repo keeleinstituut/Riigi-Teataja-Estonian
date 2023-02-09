@@ -185,8 +185,8 @@ def metasheet_header_writer(metaworksheet):
     metaworksheet.write('Q1', "act_passed")
     metaworksheet.write('R1', "crawl_date")
     metaworksheet.write('S1', "crawl_time")
-    metaworksheet.write('T1', "language")
-    metaworksheet.write('U1', "url")
+    metaworksheet.write('T1', "url")
+    # metaworksheet.write('U1', "language")
 
 
 

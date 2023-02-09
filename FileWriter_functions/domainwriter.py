@@ -104,7 +104,7 @@ def subcat_from_main(paragraph):
 def subjoiner(subc):
     valuesonly = list(filter(None, subc))
     if len(valuesonly) == 0:
-        subcat = "None"
+        subcat = "NONE"
     else:
         subcat = ','.join(valuesonly)
 
