@@ -4,16 +4,16 @@ from bs4 import BeautifulSoup
 import re
 
 # STEP1 
-def subcatanalyzer(url): 
+def subcatanalyzer(soup): 
     # parse act
-    page = requests.get(url)
-    soup = BeautifulSoup(page.content, "lxml")
+    # page = requests.get(url)
+    # soup = BeautifulSoup(page.content, "lxml")
     sub1 = []
     sub2 = []
     sub3 = []
     sub4 = []
     
-    topcontent = soup.find("div", id="path")
+    topcontent = soup.find("div", attrs={'id': 'path'})
     if topcontent:
         eurovocs = topcontent.find("div", class_="eurovoc")
     
@@ -70,9 +70,11 @@ def subcat_from_main(paragraph):
             main_act_id = re.search('id=(\d*)!', url)
             if main_act_id:
                 url = "".join(["https://www.riigiteataja.ee/akt/", main_act_id.group(1)])
+                page = requests.get(url, timeout=30)
+                soup = BeautifulSoup(page.content, "lxml")
                 
                 # subcategories
-                subcat = subcatanalyzer(url) 
+                subcat = subcatanalyzer(soup) 
                 if subcat[0]:
                     sub1 = subjoiner(subcat[0])
                     subcat1 = ",".join([subcat1, sub1])
@@ -110,11 +112,3 @@ def subjoiner(subc):
 
     return subcat
 
-
-
-# def subanalyser(subresults, substring):
-#     i = 3
-#     while i <= 0:
-#         if subresults[i]:
-#             sub1 = subjoiner(subresults[i])
-#             subcat1 = ",".join([subcat1, sub1])

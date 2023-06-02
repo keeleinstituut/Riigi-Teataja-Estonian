@@ -1,77 +1,72 @@
 import requests
 from bs4 import BeautifulSoup
-from URLcollector_functions.helper_functions import error_checker
+from URLcollector_functions.helper_functions import error_checker, check_if_exists
 from FileWriter_functions.writer_functions import actwriter
 
 
 # ////////////// RAKENDUSAKTIDE URLIDE KIRJUTAJA ////////////// 
    
 # avab lehe ja kontrollib, kas on rakendusakte
-def act_checker(actURL, metano, metaworksheet, counter, filepath):       
-    #print(actURL)
-    #acturllist = []
-    pageURL = actURL
-    print("alustab aktiga: ", pageURL)
-    page = requests.get(pageURL)
-    soup = BeautifulSoup(page.content, "html.parser")
+def act_checker(actURL, filepath):       
 
-    # kontrollib, kas aktil on sisutekst
-    error = error_checker(soup)
-
-    if not error:
-        #acturllist.append(pageURL)
-        result = actwriter(pageURL, metaworksheet, metano, filepath)
-        metano = result[1]
-        counter +=1
-        print(counter, "done act: ", actURL, "metadata row:", metano)
-
-        implacts = impl_acts_checker(soup, pageURL, metaworksheet, counter, metano, filepath)
-        metano = implacts[0]
-        counter = implacts[1]
-        
-
-    else:
-        print("oli error aktis: "+ pageURL)
-        
-    return metano, counter
-
-def impl_acts_checker(soup, pageURL, metaworksheet, counter, metano, filepath):
-    results = soup.find("ul", class_="tabs clear")
-    rakendusaktid = results.select_one("a[href*='/akt_rakendusaktid']")
-
-    if rakendusaktid:
-        #print("on rakendusaktid: "+ pageURL)
-        rakendusaktid = rakendusaktid['href']
-        raklist = impl_act_writer(rakendusaktid, metaworksheet, counter, metano, filepath)
-        metano = raklist[0]
-        counter = raklist[1]
+    print("alustab aktiga: ", actURL)   
     
-    return metano, counter
+    try:
+        page = requests.get(actURL, timeout=30)
+        soup = BeautifulSoup(page.content, "lxml")
+        
+        # kas on sisutekst?
+        error = error_checker(soup)
+
+        if not error:                   
+            # kirjutab akti
+            actwriter(actURL, filepath, soup)
+            
+            # kas on rakendusakte?
+            impl_acts_checker(soup, filepath)
+
+        else:
+            print("oli error aktis: "+ actURL)
+    
+    except requests.exceptions.RequestException as e:
+        print(actURL)
+        print("!!!!!!! Error !!!!!!! ", e)
 
 
-def impl_act_writer(rakendusaktid, metaworksheet, counter, metano, filepath):
+def impl_acts_checker(soup, filepath):
+    results = soup.find("ul", class_="tabs clear")
+    if results:
+        rakendusaktid = results.select_one("a[href*='/akt_rakendusaktid']")
+
+        if rakendusaktid:
+            rakendusaktid = rakendusaktid['href']
+            impl_act_writer(rakendusaktid, filepath)
+
+
+def impl_act_writer(rakendusaktid, filepath):
     # avab rakendusaktide lehe
     url = str(rakendusaktid) + "&leht=0&kuvaKoik=true&sorteeri=kehtivuseAlgus&kasvav=false"
     page = requests.get(url)
     soup = BeautifulSoup(page.content, "html.parser")
     results = soup.find("tbody")
-    rakendusaktid = results.find_all("a")
-    
-    # vaatab akthaaval, kirjutab faili
-    #newlist = []
-    for akt in rakendusaktid:
-        akturl = akt['href']
-        print("alustab rakendusaktiga: ", akturl)
-        page = requests.get(akturl)
-        soup = BeautifulSoup(page.content, "html.parser")
-        error = error_checker(soup)
-        if not error:
-            result = actwriter(akturl, metaworksheet, metano, filepath)
-            metano = result[1]
-            counter +=1
-            print(counter, "done implact: ", akturl, "metadata row:", metano)
-            #newlist.append(akturl)
-        else:
-            print("oli error rakendusaktis: "+ akturl)
-      
-    return metano, counter
+    if results:
+        rakendusaktid = results.find_all("a")
+        
+        # vaatab akthaaval, kirjutab faili
+        for akt in rakendusaktid:
+            akturl = akt['href']
+            print("alustab rakendusaktiga: ", akturl)
+            fileid = akturl.split('/')[-1]
+            
+            # kas akt on juba kirjutatud?
+            if check_if_exists(filepath, fileid):
+                page = requests.get(akturl)
+                soup = BeautifulSoup(page.content, "lxml")
+                error = error_checker(soup)
+                if not error:
+                    actwriter(akturl, filepath, soup)
+                    #print("done implact: ", akturl)
+                else:
+                    print("oli error rakendusaktis: "+ akturl)
+    else:
+        print("Technical error opening oli implementing acts: "+ url)

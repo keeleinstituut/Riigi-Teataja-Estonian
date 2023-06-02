@@ -1,14 +1,10 @@
 from URLcollector_functions.type_identifier_functions import starting_point_identifier
 from URLcollector_functions.helper_functions import create_chrono_starting_point_urls, create_search_page_urls
-from single_meta_file_writer_functions import start_meta_file
 
 import time
 import os
 from os.path import exists
 import datetime
-from datetime import date
-
-start_time = time.time()
 
 # prevents requests.exceptions.SSLError: HTTPSConnectionPool(host='www.riigiteataja.ee', port=443): Max retries exceeded with url: /akt/114072020015 (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:997)')))
 import imaplib
@@ -32,12 +28,12 @@ URLlist += chronoURLs
 currentDate = datetime.date.today()
 kuupaev = currentDate.strftime("%d.%m.%Y")
 searchURLs = ["https://www.riigiteataja.ee/tervikteksti_tulemused.html?kehtivusKuupaev=" + str(kuupaev) + "&nrOtsing=tapne&riigikoguOtsused=false&valislepingud=false&valitsuseKorraldused=false&sakk=koik_otsitavad&leht=0&kuvaKoik=true&sorteeri=&kasvav=true", # kõik terviktekstid
-             "https://www.riigiteataja.ee/algteksti_tulemused.html?nrOtsing=tapne&leht=0&kuvaKoik=true&sorteeri=&kasvav=true", # kõik algtekstid
-             "https://www.riigiteataja.ee/tervikteksti_tulemused.html?kehtivusKuupaev=" + str(kuupaev) + "&kov=true&nrOtsing=tapne&valj1=K%C3%B5ik+KOV-id&sakk=koik_otsitavad&leht=0&kuvaKoik=true&sorteeri=&kasvav=true", # KOV terviktekstid
-             "https://www.riigiteataja.ee/algteksti_tulemused.html?kov=true&nrOtsing=tapne&valj1=K%C3%B5ik+KOV-id&leht=0&kuvaKoik=true&sorteeri=&kasvav=true", # KOV algtekstid
-             ]
+              "https://www.riigiteataja.ee/algteksti_tulemused.html?nrOtsing=tapne&leht=0&kuvaKoik=true&sorteeri=&kasvav=true", # kõik algtekstid
+              "https://www.riigiteataja.ee/tervikteksti_tulemused.html?kehtivusKuupaev=" + str(kuupaev) + "&kov=true&nrOtsing=tapne&valj1=K%C3%B5ik+KOV-id&sakk=koik_otsitavad&leht=26&kuvaKoik=true&sorteeri=&kasvav=true", # KOV terviktekstid
+              "https://www.riigiteataja.ee/algteksti_tulemused.html?kov=true&nrOtsing=tapne&valj1=K%C3%B5ik+KOV-id&leht=0&kuvaKoik=true&sorteeri=&kasvav=true", # KOV algtekstid
+            ]
 searchPageURLs = create_search_page_urls(searchURLs)
-URLlist = searchPageURLs
+URLlist += searchPageURLs
 
 # main folder, acts folder and meta paths
 current_dir = os.getcwd()
@@ -47,22 +43,17 @@ if not exists(main_folder):
     os.mkdir(main_folder) 
 mainpath = os.path.join(current_dir, main_folder)
 acts_folder = "acts"
-file_path = os.path.join(mainpath, acts_folder)
-if not exists(file_path):
-    os.mkdir(file_path) 
+filepath = os.path.join(mainpath, acts_folder)
+if not exists(filepath):
+    os.mkdir(filepath) 
 
-# current date for meta file name
-today = date.today()
-metafiledate = "".join(["acts-meta-",str(today),"-"])
-metacounter = 1
-
-
-starting_point_identifier(URLlist, file_path, mainpath, metafiledate, metacounter)
-
-all_metafiledate = "".join(["all-acts-meta-",str(today),".xlsx"])
-all_metapath = os.path.join(mainpath, all_metafiledate)
-
-start_meta_file(all_metapath, mainpath)
-
-
-print("Process finished --- %s seconds ---" % (time.time() - start_time))
+# import cProfile
+# if __name__ == '__main__':
+#     import cProfile, pstats
+#     profiler = cProfile.Profile()
+#     profiler.enable()
+#     starting_point_identifier(URLlist, filepath)
+#     profiler.disable()
+#     stats = pstats.Stats(profiler).sort_stats('cumtime')
+#     stats.print_stats()
+starting_point_identifier(URLlist, filepath)

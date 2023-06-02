@@ -1,7 +1,12 @@
+import re
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 from xlsxwriter import Workbook
+from time import sleep
+import os
+from os.path import exists
+
 
 
 # grabs all years from 1989 to current year and crates starting point URLs list of them
@@ -9,7 +14,7 @@ def create_chrono_starting_point_urls():
     curentdatetime = datetime.now()
     date = curentdatetime.date()
     year=date.strftime("%Y")
-    years = list(range(1989,int(year)+1))
+    years = list(range(2016,int(year)+1))
 
     kronourls = []
     for year in years:
@@ -26,7 +31,6 @@ def error_checker(soup):
         return False  
 
 def removeduplicates(lst):
-    print(len(lst))
     set_of_urls = set()
     return [x for x in lst if not (x in set_of_urls or set_of_urls.add(x))]
 
@@ -46,27 +50,31 @@ def xlsx_file_writer(urllist, path):
 
 def create_search_page_urls(searchURLs):
     pages = []
+
     for url in searchURLs:
         pages_list = []
-        pagecounter = 0
+        y = re.findall(r"leht=\d*", url)[0]
+        pagecounter = int(re.split(r"=", y)[-1])
         searchpagelist = search_page_writer(url, pages_list, pagecounter)
-        pages = searchpagelist[2]   
+        pages += searchpagelist[2]
+        print(searchpagelist[1])          
     
     removeduplicates(pages)
 
     return pages
 
+
 def search_page_writer(url, pages_list, pagecounter):   
     #search function
     pages_list.append(url)
+    
 
-    page = requests.get(url)
+    page = requests.get(url, timeout=30)
     soup = BeautifulSoup(page.content, "html.parser")
     #vaatab, kas on veel lehekülgi
     nextpage = soup.find("li", class_="next") 
     if nextpage:
-        nextlink = nextpage.find("a")
-    
+        nextlink = nextpage.find("a")    
 
     # kui on veel lehekülgi, siis liigub järgmise juurde
     if nextlink:
@@ -80,3 +88,20 @@ def search_page_writer(url, pages_list, pagecounter):
     return url, pagecounter, pages_list
 
 
+def make_request(url):
+    page = requests.get(url, timeout=30)
+    return page
+
+def request_page(url):
+    for i in range(3):
+        page = make_request(url)
+        sleep(1.5)
+    return page
+
+def check_if_exists(filepath, fileid):
+    filename = 'RT-' +str(fileid) + ".xml"
+    path = os.path.join(filepath, filename)
+    if not exists(path):
+        return True
+    else:
+        return False

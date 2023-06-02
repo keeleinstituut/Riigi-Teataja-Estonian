@@ -1,3 +1,14 @@
+7.05.2023
+Timeoutib, kui ei ole aktil sisu. Näited:
+https://www.riigiteataja.ee/akt/408052020004
+https://www.riigiteataja.ee/akt/414032014034
+https://www.riigiteataja.ee/akt/420042021028
+https://www.riigiteataja.ee/akt/422032014017
+https://www.riigiteataja.ee/akt/430042014065
+https://www.riigiteataja.ee/akt/410012014011
+https://www.riigiteataja.ee/akt/401122015039
+
+
 12.01.2023
 8. Osad kehtetud üleriigilised seadused ja määrused puudu (kopruses 22)
 9. Välislepingud - kontrolli, kas said kõik sisse (RTs 1748, korpuses 21)
@@ -16,12 +27,12 @@ DONE:
 5. vastu võetud (eraldada abbreviationist, nimetada "passed" või "entry into force")
 6. timestamp > publishing_year
 11. Miks üks akt on 1017 aastaarvuga? https://www.riigiteataja.ee/akt/428102016008 - pole aimugi, eraldi testides tuli publishing_year õige...
-14. Et "NONE" oleks esimene (Ühendkorpuses on ===NONE===)
+14. Et "NONE" oleks esimene (Ühendkorpuses on ===NONE===) - meta
 15. kõik ei ole ehk vajalikud kuvada (nt Language - võtan maha; ID, File name, Crawl time - jäävad)
 16. Title jm metainfo ei tohi sisalda jutumärke. Kui on, siis /" 
 
 # katkine akt on https://www.riigiteataja.ee/akt/830203 - avades kuvab "Tehniline viga"
-# asub https://www.riigiteataja.ee/kronoloogia.html?aasta=2005&rtOsaId=
+# asub https://www.riigiteataja.ee/kronoloogia_tulemus.html?kpv=08.02.2005&rtOsaId=&leht=0&kuvaKoik=true&sorteeri=id&kasvav=false
 
 EI TEE:
 7. wordcount lisada metasse? Ei ole vajalik (25.11.2022)

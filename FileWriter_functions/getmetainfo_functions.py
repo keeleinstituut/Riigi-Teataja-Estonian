@@ -20,26 +20,22 @@ def get_issuer(res_meta):
     return issuer, metaissuer
     
 
-def get_acttype(res_meta, metaissuer):
+def get_acttype(res_meta):
     act_type = 'act_type="NONE"'
-    metaact_type = "NONE"
     
     if "Akti liik" in res_meta:
         act_type = 'act_type="'+str(res_meta["Akti liik"])+'"'
-        metaact_type = str(res_meta["Akti liik"])        
 
-    return act_type, metaact_type
+    return act_type
 
 
 def get_texttype(res_meta):
     text_type = 'text_type="NONE"'
-    metatext_type = "NONE"
 
     if "Teksti liik" in res_meta:
         text_type = 'text_type="'+str(res_meta["Teksti liik"])+'"'
-        metatext_type = str(res_meta["Teksti liik"])       
 
-    return text_type, metatext_type
+    return text_type
         
         
 def get_inforcefrom(res_meta, vv):
@@ -52,13 +48,7 @@ def get_inforcefrom(res_meta, vv):
     elif "Jõustumise kp" in res_meta:
         in_force_from = 'in_force_from="'+str(res_meta["Jõustumise kp"])+'"'
         metain_force_from = str(res_meta["Jõustumise kp"])
-    # else:
-    #     date_from_vv = vv.split(" ")
-    #     contains_date = any([char.isdigit() for char in date_from_vv[0]])
-    #     if contains_date:
-    #         in_force_from = 'in_force_from="' +date_from_vv[0]+ '""'
-    #         metain_force_from = date_from_vv[0]           
-
+ 
     return in_force_from, metain_force_from
 
 
@@ -80,8 +70,9 @@ def get_publishingnote(res_meta):
     metapublishing_note = "NONE"
 
     if "Avaldamismärge" in res_meta:
-        publishing_note = 'publishing_note="'+str(res_meta["Avaldamismärge"])+'"'
-        metapublishing_note = str(res_meta["Avaldamismärge"])
+        if len(res_meta["Avaldamismärge"]) > 0:
+            publishing_note = 'publishing_note="'+str(res_meta["Avaldamismärge"])+'"'
+            metapublishing_note = str(res_meta["Avaldamismärge"])
     
     return publishing_note, metapublishing_note
 
@@ -97,15 +88,14 @@ def get_validity(metain_force_until, now):
             validity = "Kehtetu"
 
     validity_note = 'validity="'+str(validity)+'"'
-    metavalidity_note = str(validity)
 
-    return validity_note, metavalidity_note
+    return validity_note
 
 def get_titleabb(soup):
     # act title and abbrevation
     title_long = soup.find("h1", class_="fixed").text
-    title_long = title_long.strip()# title_long.replace("\s+","")
-    title_long = title_long.replace('"', '/"')
+    title_long = title_long.strip()
+    title_long = title_long.replace('"', "/'")
     abbrevation = "NONE"
    
     m = re.search(r'\(lühend\s-\s(.*?)\)', title_long)
